@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+import "common/messages.proto";
+import "google/api/annotations.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.admin";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.Admin";
+option objc_class_prefix = "TM";
+
+service AdminResources {
+  rpc CreateRandomShip (AdminCreateShipRequest) returns (AdminCreateShipResponse) {
+    option (google.api.http) = {
+      post: "/api/admin/ships"
+      body: "*"
+    };
+  }
+
+  rpc CreateRandomMonkeynaut (AdminCreateMonkeynautRequest) returns (AdminCreateMonkeynautResponse) {
+    option (google.api.http) = {
+      post: "/api/admin/monkeynauts"
+      body: "*"
+    };
+  }
+}
+
+message AdminCreateShipRequest {
+  string email = 1;
+}
+
+message AdminCreateShipResponse {
+  common.Ship ship = 1;
+}
+
+message AdminCreateMonkeynautRequest {
+  string email = 1;
+}
+
+message AdminCreateMonkeynautResponse {
+  common.Monkeynaut monkeynaut = 1;
+}

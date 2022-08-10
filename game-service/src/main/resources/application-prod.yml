@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+grpc:
+  server:
+    port: 50051
+
+spring:
+  flyway:
+    enabled: false
+  jpa:
+    show-sql: false
+  config:
+    import: "aws-parameterstore:"
+
+flyway:
+  locations: classpath:prod/db/migration
+
+datasource:
+  driver:
+    class: org.postgresql.Driver

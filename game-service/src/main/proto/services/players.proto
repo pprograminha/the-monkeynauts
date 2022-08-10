@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+import "common/messages.proto";
+import "google/api/annotations.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.players";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.Players";
+option objc_class_prefix = "TM";
+
+service Players {
+  rpc Create (CreatePlayerRequest) returns (CreatePlayerResponse) {
+    option (google.api.http) = {
+      post: "/api/players"
+      body: "*"
+    };
+  }
+}
+
+message CreatePlayerRequest {
+  string email = 1;
+  string password = 2;
+  string nickname = 3;
+}
+
+message CreatePlayerResponse {
+  common.User player = 1;
+  string token = 2;
+}

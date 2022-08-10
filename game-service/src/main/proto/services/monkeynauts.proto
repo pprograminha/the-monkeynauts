@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+import "common/messages.proto";
+import "google/api/annotations.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.monkeynauts";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.Monkeynauts";
+option objc_class_prefix = "TM";
+
+service Monkeynauts {
+  rpc Create (CreateMonkeynautRequest) returns (CreateMonkeynautResponse) {
+    option (google.api.http) = {
+      post: "/api/monkeynauts"
+      body: "*"
+    };
+  }
+
+  rpc List (ListMonkeynautRequest) returns (ListMonkeynautResponse) {
+    option (google.api.http) = {
+      get: "/api/monkeynauts"
+    };
+  }
+}
+
+message RandomMonkeynautGenerationRequest {}
+
+message SpecifiedMonkeynautGenerationRequest {
+  common.MonkeynautClass class = 1;
+  common.MonkeynautRank rank = 2;
+}
+
+message CreateMonkeynautRequest {
+  oneof generation {
+      RandomMonkeynautGenerationRequest random = 1;
+      SpecifiedMonkeynautGenerationRequest specified = 2;
+  }
+}
+
+message CreateMonkeynautResponse {
+  common.Monkeynaut monkeynaut = 1;
+}
+
+message ListMonkeynautRequest {}
+
+message ListMonkeynautResponse {
+  repeated common.Monkeynaut monkeynauts = 1;
+}

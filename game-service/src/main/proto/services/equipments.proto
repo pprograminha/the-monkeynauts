@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+import "common/messages.proto";
+import "google/api/annotations.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.equipments";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.Equipments";
+option objc_class_prefix = "TM";
+
+service Equipments {
+  rpc GrantToUser (GrantToUserEquipmentRequest) returns (GrantToUserEquipmentResponse) {
+    option (google.api.http) = {
+      post: "/api/user-equipments"
+      body: "*"
+    };
+  }
+
+  rpc ListFromUser (ListFromUserEquipmentRequest) returns (ListFromUserEquipmentResponse) {
+    option (google.api.http) = {
+      get: "/api/user-equipments"
+    };
+  }
+}
+
+message GrantToUserEquipmentRequest {
+  string equipmentId = 1;
+}
+
+message GrantToUserEquipmentResponse {}
+
+message ListFromUserEquipmentRequest {}
+
+message ListFromUserEquipmentResponse {
+  repeated common.Equipment equipments = 1;
+}

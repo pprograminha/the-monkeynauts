@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+import "common/messages.proto";
+import "google/api/annotations.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.authentication";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.Authentication";
+option objc_class_prefix = "TM";
+
+service Authentication {
+  rpc Authenticate (AuthenticationRequest) returns (AuthenticationResponse) {
+    option (google.api.http) = {
+      post: "/api/authentication"
+      body: "*"
+    };
+  }
+
+  rpc Authenticated (AuthenticatedRequest) returns (AuthenticatedResponse) {
+    option (google.api.http) = {
+      get: "/api/authentication"
+    };
+  }
+}
+
+message AuthenticationRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AuthenticationResponse {
+  string token = 1;
+}
+
+message AuthenticatedRequest {}
+
+message AuthenticatedResponse {
+  common.User user = 1;
+}

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+import "common/messages.proto";
+import "google/api/annotations.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.wallets";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.Wallets";
+option objc_class_prefix = "TM";
+
+service Wallets {
+  rpc Create (CreateWalletRequest) returns (CreateWalletResponse) {
+    option (google.api.http) = {
+      post: "/api/wallets"
+      body: "*"
+    };
+  }
+}
+
+message CreateWalletRequest {
+  string address = 1;
+  string name = 2;
+}
+
+message CreateWalletResponse {
+  common.Wallet wallet = 1;
+}

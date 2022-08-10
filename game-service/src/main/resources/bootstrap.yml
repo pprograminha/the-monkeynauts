@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: monkeynauts-service
+
+cloud:
+  aws:
+    region:
+      static: us-east-1
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: default
+
+aws:
+  paramstore:
+    enabled: false
+
+cloud:
+  aws:
+    stack:
+      auto: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+aws:
+  paramstore:
+    enabled: true
+    profileSeparator: '_'

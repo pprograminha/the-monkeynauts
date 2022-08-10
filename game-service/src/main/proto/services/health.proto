@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.health";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.Health";
+option objc_class_prefix = "TM";
+
+import "google/api/annotations.proto";
+
+service Health {
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse) {
+    option (google.api.http) = {
+      get: "/api/health"
+    };
+  }
+}
+
+message HealthCheckRequest {
+}
+
+message HealthCheckResponse {
+  string response = 1;
+}

@@ -1,0 +1,131 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.common;
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.common.messages";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Common.Messages";
+option objc_class_prefix = "TM";
+
+message User {
+  string id = 1;
+  string email = 2;
+  string nickname = 3;
+  repeated Role roles = 4;
+  google.protobuf.Timestamp lastBountyHuntingDateTime = 5;
+  common.Wallet wallet = 6;
+}
+
+enum Role {
+  ROLE_UNSPECIFIED = 0;
+  ROOT = 1;
+  ADMIN = 2;
+  PLAYER = 3;
+}
+
+message Monkeynaut {
+  string id = 1;
+  uint64 number = 2;
+  string firstName = 3;
+  string lastName = 4;
+  MonkeynautClass class = 5;
+  MonkeynautRank rank = 6;
+  MonkeynautAttributes attributes = 7;
+  MonkeynautBonus bonus = 8;
+  uint32 breedCount = 9;
+  string shipId = 10;
+  common.User owner = 11;
+  common.User operator = 12;
+}
+
+message MonkeynautBonus {
+  string description = 1;
+  float value = 2;
+}
+
+enum MonkeynautClass {
+  MONKEYNAUT_CLASS_UNSPECIFIED = 0;
+  SOLDIER = 1;
+  SCIENTIST = 2;
+  ENGINEER = 3;
+}
+
+enum MonkeynautRank {
+  MONKEYNAUT_RANK_UNSPECIFIED = 0;
+  PRIVATE = 1;
+  SERGEANT = 2;
+  CAPTAIN = 3;
+  MAJOR = 4;
+}
+
+message MonkeynautAttributes {
+  int32 skill = 1;
+  int32 speed = 2;
+  int32 resistance = 3;
+  int32 life = 4;
+  int32 maxEnergy = 5;
+  int32 currentEnergy = 6;
+}
+
+message Equipment {
+  string id = 1;
+  string name = 2;
+  EquipmentType type = 3;
+}
+
+enum EquipmentType {
+  EQUIPMENT_NOT_SPECIFIED = 0;
+  WEAPON = 1;
+  SHIELD = 2;
+  ACCESSORY = 3;
+}
+
+message Ship {
+  string id = 1;
+  string name = 2;
+  ShipClass class = 3;
+  ShipRank rank = 4;
+  ShipAttributes attributes = 5;
+  ShipBonus bonus = 6;
+  ShipCrew crew = 7;
+  common.User owner = 8;
+  common.User operator = 9;
+}
+
+message ShipCrew {
+  int32 seats = 1;
+  repeated Monkeynaut monkeynauts = 2;
+}
+
+message ShipBonus {
+  string description = 1;
+  float value = 2;
+}
+
+enum ShipClass {
+  SHIP_CLASS_UNSPECIFIED = 0;
+  FIGHTER = 1;
+  MINER = 2;
+  EXPLORER = 3;
+}
+
+enum ShipRank {
+  SHIP_RANK_UNSPECIFIED = 0;
+  B = 1;
+  A = 2;
+  S = 3;
+}
+
+message ShipAttributes {
+  int32 maxDurability = 1;
+  int32 currentDurability = 2;
+}
+
+message Wallet {
+  string id = 1;
+  string address = 2;
+  string name = 3;
+  float balance = 4;
+}

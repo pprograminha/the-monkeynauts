@@ -1,0 +1,57 @@
+server:
+  port: 8080
+
+grpc:
+  server:
+    port: 50051
+
+spring:
+  flyway:
+    enabled: false
+  jpa:
+    show-sql: true
+
+flyway:
+  locations: classpath:db/migration
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+datasource:
+  url: jdbc:postgresql://localhost:5432/themonkeynauts
+  app:
+    schema: themonkeynauts
+    username: application
+    password: 123456
+  schema:
+    username: root
+    password: root
+  driver:
+    class: org.postgresql.Driver
+
+app:
+  security:
+    jwt:
+      keystore-location: keys/themonkeynauts.jks
+      keystore-password: password
+      key-alias: themonkeynauts
+      private-key-passphrase: password
+
+wallet:
+  contract:
+    id: "0x84b9b910527ad5c03a9ca831909e21e236ea7b06"
+    privateKey: "9d6bb895bdb979e85d925623d57e6ab5f94ad162ac66237760556dd668fb46e4"
+  reward:
+    id: "0x68fcf259C0aa73419769E691947C70d0065Ca1CF"
+  uri: "https://data-seed-prebsc-1-s1.binance.org:8545/"
+
+application:
+  health:
+    response: UP

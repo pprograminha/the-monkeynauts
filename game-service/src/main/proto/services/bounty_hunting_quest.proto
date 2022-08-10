@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+import "common/messages.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.bountyhuntingquest";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.BountyHuntingQuest";
+option objc_class_prefix = "TM";
+
+service BountyHuntingQuest {
+  rpc Start (StartBountyHuntingQuestRequest) returns (StartBountyHuntingQuestResponse) {}
+
+  rpc Reward (RewardBountyHuntingQuestRequest) returns (RewardBountyHuntingQuestResponse) {}
+}
+
+message StartBountyHuntingQuestRequest {
+  string shipId = 1;
+}
+
+message StartBountyHuntingQuestResponse {
+  common.Ship ship = 1;
+}
+
+message RewardBountyHuntingQuestRequest {}
+
+message RewardBountyHuntingQuestResponse {}

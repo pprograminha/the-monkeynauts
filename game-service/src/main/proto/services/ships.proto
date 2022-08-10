@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package com.themonkeynauts.proto.service;
+
+import "common/messages.proto";
+import "google/api/annotations.proto";
+
+option java_multiple_files = true;
+option java_package = "com.themonkeynauts.proto.service.ships";
+option csharp_namespace = "Com.TheMonkeynauts.Proto.Service.Ships";
+option objc_class_prefix = "TM";
+
+service Ships {
+  rpc Create (CreateShipRequest) returns (CreateShipResponse) {
+    option (google.api.http) = {
+      post: "/api/ships"
+      body: "*"
+    };
+  }
+
+  rpc List (ListShipRequest) returns (ListShipResponse) {
+    option (google.api.http) = {
+      get: "/api/ships"
+    };
+  }
+
+  rpc Get (GetShipRequest) returns (GetShipResponse) {
+    option (google.api.http) = {
+      get: "/api/ships/{shipId}"
+    };
+  }
+
+  rpc AddMonkeynautToCrew(AddMonkeynautToCrewRequest) returns (AddMonkeynautToCrewResponse) {
+    option (google.api.http) = {
+      post: "/api/ships/{shipId}/monkeynauts"
+      body: "*"
+    };
+  }
+
+  rpc RemoveMonkeynautFromCrew(RemoveMonkeynautFromCrewRequest) returns (RemoveMonkeynautFromCrewResponse) {
+    option (google.api.http) = {
+      delete: "/api/ships/{shipId}/monkeynauts/{monkeynautId}"
+      body: "*"
+    };
+  }
+}
+
+message RandomShipGenerationRequest {}
+
+message SpecifiedShipGenerationRequest {
+  common.ShipClass class = 1;
+  common.ShipRank rank = 2;
+}
+
+message CreateShipRequest {
+  oneof generation {
+      RandomShipGenerationRequest random = 1;
+      SpecifiedShipGenerationRequest specified = 2;
+  }
+}
+
+message CreateShipResponse {
+  common.Ship ship = 1;
+}
+
+message ListShipRequest {}
+
+message ListShipResponse {
+  repeated common.Ship ships = 1;
+}
+
+message GetShipRequest {
+  string shipId = 1;
+}
+
+message GetShipResponse {
+  common.Ship ship = 1;
+}
+
+message AddMonkeynautToCrewRequest {
+  string shipId = 1;
+  string monkeynautId = 2;
+}
+
+message AddMonkeynautToCrewResponse {
+  common.Ship ship = 1;
+}
+
+message RemoveMonkeynautFromCrewRequest {
+  string shipId = 1;
+  string monkeynautId = 2;
+}
+
+message RemoveMonkeynautFromCrewResponse {
+  common.Ship ship = 1;
+}
